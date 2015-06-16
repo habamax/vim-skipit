@@ -13,20 +13,22 @@ quotes and place cursor right after them.
 ```
 
 I want to rename function and insert one more parameter so I issue:
+```
     ct_
     latte
+```
 
 ```python
     def make_me_latte|_coffee(temperature):
 ```
 
-Here I press CTRL-L and skip _coffee(
+Here I press CTRL-L and skip `_coffee(`
 
 ```python
     def make_me_latte_coffee(|temperature):
 ```
 
-Then add some sugar
+Then add some `sugar, `
 
 ```python
     def make_me_latte_coffee(sugar, |temperature):
