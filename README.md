@@ -6,6 +6,8 @@ quotes and place cursor right after them.
 
 ## Example
 
+![vim-skipit example](http://i.imgur.com/agJQSXp.gif)
+
 `|` is the cursor position.
 
 ```python
