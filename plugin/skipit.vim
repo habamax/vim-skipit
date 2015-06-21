@@ -7,7 +7,7 @@ endif
 let g:loaded_skipit = 1
 
 fun! s:skipit()
-	let pos = searchpos('\v[{([<"''|>\])}]', 'ec', line('.'))
+	let pos = searchpos('\v[{([<"''|>\])}]', 'ecW')
 	if pos != [0, 0]
 		call setpos('.', [0, pos[0], pos[1]+1, 0])
 	else
