@@ -6,8 +6,17 @@ if exists("g:loaded_skipit") || &cp || v:version < 700
 endif
 let g:loaded_skipit = 1
 
+if !exists('g:skipit_multiline')
+	let g:skipit_multiline = 1
+endif
+
 fun! s:skipit()
-	let pos = searchpos('\v[{([<"''|>\])}]', 'ecW')
+	if(g:skipit_multiline)
+		let pos = searchpos('\v[{([<"''|>\])}]', 'ecW')
+	else
+		let pos = searchpos('\v[{([<"''|>\])}]', 'ec', line('.'))
+	endif
+
 	if pos != [0, 0]
 		call setpos('.', [0, pos[0], pos[1]+1, 0])
 	else
