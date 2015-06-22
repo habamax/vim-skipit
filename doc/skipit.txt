@@ -34,4 +34,10 @@ CTRL-L                  Skip text and place cursor right after the next ([{<"|'>
                         Use <Plug>SkipIt to remap:
                         imap <C-f> <Plug>SkipIt
 
+                                                *g:skipit_multiline*
+By default CTRL-L skips text across lines. You can change this behaviour by
+setting:
+    let g:skipit_multiline = 0
+in your .vimrc
+
  vim:tw=78:et:ft=help:norl:
