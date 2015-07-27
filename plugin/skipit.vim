@@ -25,6 +25,17 @@ fun! s:skipit()
 	endif
 endfun
 
+fun! s:skipitback()
+	let pattern='\v['.s:beginning_delimiters.s:ending_delimiters.s:quotes.']'
+	let pos = s:findprev(pattern)
+
+	if pos != [0, 0]
+		call setpos('.', [0, pos[0], pos[1], 0])
+	else
+		call setpos('.', [0, line('.'), 0])
+	endif
+endfun
+
 fun! s:skipall()
 	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.']'
 	let pos = s:findnext(pattern)
@@ -71,9 +82,18 @@ endfun
 
 fun! s:findnext(pattern)
 	if(g:skipit_multiline)
+		" c - accept matches at the current cursor
 		return searchpos(a:pattern, 'ecW')
 	else
 		return searchpos(a:pattern, 'ec', line('.'))
+	endif
+endfun
+
+fun! s:findprev(pattern)
+	if(g:skipit_multiline)
+		return searchpos(a:pattern, 'beW')
+	else
+		return searchpos(a:pattern, 'be', line('.'))
 	endif
 endfun
 
@@ -86,10 +106,15 @@ fun! s:isin(char, string)
 endfun
 
 inoremap <silent> <Plug>SkipIt <C-\><C-O>:call <SID>skipit()<CR>
+inoremap <silent> <Plug>SkipItBack <C-\><C-O>:call <SID>skipitback()<CR>
 inoremap <silent> <Plug>SkipAll <C-\><C-O>:call <SID>skipall()<CR>
 
 if !hasmapto('<Plug>SkipIt') && maparg('<C-l>','i') ==# ''
 	imap <C-l> <Plug>SkipIt
+endif
+
+if !hasmapto('<Plug>SkipItBack') && maparg('<C-b>','i') ==# ''
+	imap <C-b> <Plug>SkipItBack
 endif
 
 if !hasmapto('<Plug>SkipAll') && maparg('<C-g>l','i') ==# ''
