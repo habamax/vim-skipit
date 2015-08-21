@@ -80,6 +80,51 @@ fun! s:skipall()
 	endif
 endfun
 
+fun! s:skipallback()
+	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.']'
+	let pos = s:findprev(pattern)
+
+	if pos != [0, 0]
+		" Keep looking forward and find the true stop position
+		" First find out if we found a beginning delimiter or an ending
+		" delimiter, and keep looking for the same type of delimiter
+		let delimiters=''
+		if(s:isin(s:getcharat(pos), s:beginning_delimiters))
+			let delimiters .= s:beginning_delimiters
+		else
+			let delimiters .= s:ending_delimiters
+		endif
+		
+		" All ignorable delimeters
+		let all_delimiters = delimiters.s:quotes."\s\t\n"
+		" Initialize the position for iterating the current buffer
+		let curlinepos=pos[0]
+		let curpos=pos[1]
+		let stop=0
+		while (curlinepos >=1 && !stop)
+			let curline=getline(curlinepos)
+			while (curpos >= 1 && !stop)
+				let curchar=s:getcharat([curlinepos, curpos])
+				if(s:isin(curchar, all_delimiters))
+					if(s:isin(curchar, delimiters))
+						let pos=[curlinepos, curpos+1]
+					endif
+					let curpos=curpos-1
+				else
+					let stop=1
+				endif
+			endwhile
+			let curlinepos=curlinepos-1
+			if(curlinepos > 1)
+				let curpos=len(getline(curlinepos))
+			endif
+		endwhile
+		call setpos('.', [0, pos[0], pos[1]-1, 0])
+	else
+		call setpos('.', [0, line('.'), col('$')])
+	endif
+endfun
+
 fun! s:findnext(pattern)
 	if(g:skipit_multiline)
 		" c - accept matches at the current cursor
@@ -108,6 +153,7 @@ endfun
 inoremap <silent> <Plug>SkipIt <C-\><C-O>:call <SID>skipit()<CR>
 inoremap <silent> <Plug>SkipItBack <C-\><C-O>:call <SID>skipitback()<CR>
 inoremap <silent> <Plug>SkipAll <C-\><C-O>:call <SID>skipall()<CR>
+inoremap <silent> <Plug>SkipAllBack <C-\><C-O>:call <SID>skipallback()<CR>
 
 if !hasmapto('<Plug>SkipIt') && maparg('<C-l>','i') ==# ''
 	imap <C-l> <Plug>SkipIt
@@ -119,4 +165,8 @@ endif
 
 if !hasmapto('<Plug>SkipAll') && maparg('<C-g>l','i') ==# ''
 	imap <C-g>l <Plug>SkipAll
+endif
+
+if !hasmapto('<Plug>SkipAllBack') && maparg('<C-g>b','i') ==# ''
+	imap <C-g>b <Plug>SkipAllBack
 endif
