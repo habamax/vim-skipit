@@ -159,7 +159,7 @@ if !hasmapto('<Plug>SkipIt') && maparg('<C-l>','i') ==# ''
 	imap <C-l> <Plug>SkipIt
 endif
 
-if !hasmapto('<Plug>SkipItBack') && maparg('<C-b>','i') ==# ''
+if !hasmapto('<Plug>SkipItBack') && maparg('<C-p>','i') ==# ''
 	imap <C-b> <Plug>SkipItBack
 endif
 
@@ -167,6 +167,6 @@ if !hasmapto('<Plug>SkipAll') && maparg('<C-g>l','i') ==# ''
 	imap <C-g>l <Plug>SkipAll
 endif
 
-if !hasmapto('<Plug>SkipAllBack') && maparg('<C-g>b','i') ==# ''
+if !hasmapto('<Plug>SkipAllBack') && maparg('<C-g>p','i') ==# ''
 	imap <C-g>b <Plug>SkipAllBack
 endif
