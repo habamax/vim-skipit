@@ -74,7 +74,7 @@ fun! s:skipall()
 			let curlinepos=curlinepos+1
 			let curpos=1
 		endwhile
-		call setpos('.', [0, pos[0], pos[1]+1, 0])
+		call setpos('.', [0, pos[0], pos[1], 0])
 	else
 		call setpos('.', [0, line('.'), col('$')])
 	endif
