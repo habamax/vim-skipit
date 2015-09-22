@@ -50,7 +50,7 @@ fun! s:skipall()
 		else
 			let delimiters .= s:ending_delimiters
 		endif
-		
+
 		" All ignorable delimeters
 		let all_delimiters = delimiters.s:quotes."\s\t\n"
 		" Initialize the position for iterating the current buffer
@@ -94,7 +94,7 @@ fun! s:skipallback()
 		else
 			let delimiters .= s:ending_delimiters
 		endif
-		
+
 		" All ignorable delimeters
 		let all_delimiters = delimiters.s:quotes."\s\t\n"
 		" Initialize the position for iterating the current buffer
@@ -151,19 +151,19 @@ fun! s:isin(char, string)
 endfun
 
 inoremap <silent> <Plug>SkipIt <C-\><C-O>:call <SID>skipit()<CR>
-inoremap <silent> <Plug>SkipItBack <C-\><C-O>:call <SID>skipitback()<CR>
-inoremap <silent> <Plug>SkipAll <C-\><C-O>:call <SID>skipall()<CR>
+inoremap <silent> <Plug>SkipBack <C-\><C-O>:call <SID>skipitback()<CR>
+inoremap <silent> <Plug>SkipAllForward <C-\><C-O>:call <SID>skipall()<CR>
 inoremap <silent> <Plug>SkipAllBack <C-\><C-O>:call <SID>skipallback()<CR>
 
 if !hasmapto('<Plug>SkipIt') && maparg('<C-l>','i') ==# ''
 	imap <C-l> <Plug>SkipIt
 endif
 
-if !hasmapto('<Plug>SkipItBack') && maparg('<C-p>','i') ==# ''
-	imap <C-b> <Plug>SkipItBack
+if !hasmapto('<Plug>SkipBack') && maparg('<C-p>','i') ==# ''
+	imap <C-p> <Plug>SkipBack
 endif
 
-if !hasmapto('<Plug>SkipAll') && maparg('<C-g>l','i') ==# ''
+if !hasmapto('<Plug>SkipAllForward') && maparg('<C-g>l','i') ==# ''
 	imap <C-g>l <Plug>SkipAll
 endif
 
