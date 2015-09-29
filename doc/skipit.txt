@@ -3,7 +3,7 @@
 Author:  Maxim Kim <habamax@gmail.com>
 License: MIT
 
-While INSERT mode on press CTRL-L to skip everything until parentheses, bars or
+While INSERT mode on press <CTRL-L>l to skip everything until parentheses, bars or
 quotes and place cursor right after them.
 
 Example:
@@ -18,7 +18,7 @@ I want to rename function and insert one more parameter so I issue:
 
     def make_me_latte|_coffee(temperature):
 
-Here I press CTRL-L and skip _coffee(
+Here I press <CTRL-L>l and skip _coffee(
 
     def make_me_latte_coffee(|temperature):
 
@@ -29,13 +29,13 @@ Then add some sugar
 And I am ready to exit INSERT mode. <ESC>
 
 
-                                                *i_CTRL-L*
-CTRL-L                  Skip text and place cursor right after the next ([{<"|'>}])
-                        Use <Plug>SkipIt to remap:
-                        imap <C-f> <Plug>SkipIt
+                                                *i_CTRL-L_l*
+CTRL-L l                Skip text and place cursor right after the next ([{<"|'>}])
+                        Use <Plug>SkipItForward to remap:
+                        imap <C-f> <Plug>SkipItForward
 
                                                 *g:skipit_multiline*
-By default CTRL-L skips text across lines. You can change this behaviour by
+By default <CTRL-L>l skips text across lines. You can change this behaviour by
 setting:
     let g:skipit_multiline = 0
 in your .vimrc

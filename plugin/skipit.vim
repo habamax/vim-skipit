@@ -14,7 +14,7 @@ let s:quotes = '"''`|'
 let s:beginning_delimiters = '[{(<'
 let s:ending_delimiters = '\])}>'
 
-fun! s:skipit()
+fun! s:skip_it_forward()
 	let pattern='\v['.s:beginning_delimiters.s:ending_delimiters.s:quotes.']'
 	let pos = s:findnext(pattern)
 
@@ -25,7 +25,7 @@ fun! s:skipit()
 	endif
 endfun
 
-fun! s:skipitback()
+fun! s:skip_it_back()
 	let pattern='\v['.s:beginning_delimiters.s:ending_delimiters.s:quotes.']'
 	let pos = s:findprev(pattern)
 
@@ -36,7 +36,7 @@ fun! s:skipitback()
 	endif
 endfun
 
-fun! s:skipall()
+fun! s:skip_all_forward()
 	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.']'
 	let pos = s:findnext(pattern)
 
@@ -80,7 +80,7 @@ fun! s:skipall()
 	endif
 endfun
 
-fun! s:skipallback()
+fun! s:skip_all_back()
 	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.']'
 	let pos = s:findprev(pattern)
 
@@ -150,23 +150,23 @@ fun! s:isin(char, string)
 	return stridx(a:string, a:char) >= 0
 endfun
 
-inoremap <silent> <Plug>SkipIt <C-\><C-O>:call <SID>skipit()<CR>
-inoremap <silent> <Plug>SkipBack <C-\><C-O>:call <SID>skipitback()<CR>
-inoremap <silent> <Plug>SkipAllForward <C-\><C-O>:call <SID>skipall()<CR>
-inoremap <silent> <Plug>SkipAllBack <C-\><C-O>:call <SID>skipallback()<CR>
+inoremap <silent> <Plug>SkipItForward <C-\><C-O>:call <SID>skip_it_forward()<CR>
+inoremap <silent> <Plug>SkipItBack <C-\><C-O>:call <SID>skip_it_back()<CR>
+inoremap <silent> <Plug>SkipAllForward <C-\><C-O>:call <SID>skip_all_forward()<CR>
+inoremap <silent> <Plug>SkipAllBack <C-\><C-O>:call <SID>skip_all_back()<CR>
 
-if !hasmapto('<Plug>SkipIt') && maparg('<C-l>','i') ==# ''
-	imap <C-l> <Plug>SkipIt
+if !hasmapto('<Plug>SkipItForward') && maparg('<C-l>l','i') ==# ''
+	imap <C-l>l <Plug>SkipItForward
 endif
 
-if !hasmapto('<Plug>SkipBack') && maparg('<C-p>','i') ==# ''
-	imap <C-p> <Plug>SkipBack
+if !hasmapto('<Plug>SkipItBack') && maparg('<C-l>h','i') ==# ''
+	imap <C-l>h <Plug>SkipItBack
 endif
 
-if !hasmapto('<Plug>SkipAllForward') && maparg('<C-g>l','i') ==# ''
-	imap <C-g>l <Plug>SkipAll
+if !hasmapto('<Plug>SkipAllForward') && maparg('<C-l>L','i') ==# ''
+	imap <C-l>L <Plug>SkipAllForward
 endif
 
-if !hasmapto('<Plug>SkipAllBack') && maparg('<C-g>p','i') ==# ''
-	imap <C-g>b <Plug>SkipAllBack
+if !hasmapto('<Plug>SkipAllBack') && maparg('<C-l>H','i') ==# ''
+	imap <C-l>H <Plug>SkipAllBack
 endif

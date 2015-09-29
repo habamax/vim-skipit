@@ -1,7 +1,7 @@
 # vim-skipit
 Skip text in INSERT mode.
 
-While INSERT mode on press `CTRL-L` to skip everything until parentheses, bars or
+While INSERT mode on press `<CTRL-L>l ` to skip everything until parentheses, bars or
 quotes and place cursor right after them.
 
 ## Example
@@ -24,7 +24,7 @@ I want to rename function and insert one more parameter so I issue:
     def make_me_latte|_coffee(temperature):
 ```
 
-Here I press CTRL-L and skip `_coffee(`
+Here I press `<CTRL-L>l` and skip `_coffee(`
 
 ```python
     def make_me_latte_coffee(|temperature):
