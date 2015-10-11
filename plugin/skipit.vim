@@ -26,7 +26,7 @@ fun! s:skip_it_forward()
 endfun
 
 fun! s:skip_it_back()
-	let pattern='\v['.s:beginning_delimiters.s:ending_delimiters.s:quotes.']'
+	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.s:quotes.']'
 	let pos = s:findprev(pattern)
 
 	if pos != [0, 0]
@@ -37,7 +37,7 @@ fun! s:skip_it_back()
 endfun
 
 fun! s:skip_all_forward()
-	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.']'
+	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.s:quotes.']'
 	let pos = s:findnext(pattern)
 
 	if pos != [0, 0]
@@ -47,12 +47,12 @@ fun! s:skip_all_forward()
 		let delimiters=''
 		if(s:isin(s:getcharat(pos), s:beginning_delimiters))
 			let delimiters .= s:beginning_delimiters
-		else
+		elseif(s:isin(s:getcharat(pos), s:ending_delimiters))
 			let delimiters .= s:ending_delimiters
 		endif
 
 		" All ignorable delimeters
-		let all_delimiters = delimiters.s:quotes."\s\t\n"
+		let all_delimiters = delimiters.s:quotes." \t\n"
 		" Initialize the position for iterating the current buffer
 		let curlinepos=pos[0]
 		let curpos=pos[1]
@@ -64,7 +64,7 @@ fun! s:skip_all_forward()
 				let curchar=s:getcharat([curlinepos, curpos])
 				if(s:isin(curchar, all_delimiters))
 					if(s:isin(curchar, delimiters))
-						let pos=[curlinepos, curpos+1]
+						let pos=[curlinepos, curpos]
 					endif
 					let curpos=curpos+1
 				else
@@ -74,14 +74,14 @@ fun! s:skip_all_forward()
 			let curlinepos=curlinepos+1
 			let curpos=1
 		endwhile
-		call setpos('.', [0, pos[0], pos[1], 0])
+		call setpos('.', [0, pos[0], pos[1]+1, 0])
 	else
 		call setpos('.', [0, line('.'), col('$')])
 	endif
 endfun
 
 fun! s:skip_all_back()
-	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.']'
+	let pattern = '\v['.s:beginning_delimiters.s:ending_delimiters.s:quotes.']'
 	let pos = s:findprev(pattern)
 
 	if pos != [0, 0]
@@ -91,12 +91,12 @@ fun! s:skip_all_back()
 		let delimiters=''
 		if(s:isin(s:getcharat(pos), s:beginning_delimiters))
 			let delimiters .= s:beginning_delimiters
-		else
+		elseif(s:isin(s:getcharat(pos), s:ending_delimiters))
 			let delimiters .= s:ending_delimiters
 		endif
 
 		" All ignorable delimeters
-		let all_delimiters = delimiters.s:quotes."\s\t\n"
+		let all_delimiters = delimiters.s:quotes." \t\n"
 		" Initialize the position for iterating the current buffer
 		let curlinepos=pos[0]
 		let curpos=pos[1]
@@ -107,7 +107,7 @@ fun! s:skip_all_back()
 				let curchar=s:getcharat([curlinepos, curpos])
 				if(s:isin(curchar, all_delimiters))
 					if(s:isin(curchar, delimiters))
-						let pos=[curlinepos, curpos+1]
+						let pos=[curlinepos, curpos]
 					endif
 					let curpos=curpos-1
 				else
@@ -119,9 +119,9 @@ fun! s:skip_all_back()
 				let curpos=len(getline(curlinepos))
 			endif
 		endwhile
-		call setpos('.', [0, pos[0], pos[1]-1, 0])
+		call setpos('.', [0, pos[0], pos[1], 0])
 	else
-		call setpos('.', [0, line('.'), col('$')])
+		call setpos('.', [0, line('.'), 0])
 	endif
 endfun
 
