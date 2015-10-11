@@ -28,11 +28,51 @@ Then add some sugar
 
 And I am ready to exit INSERT mode. <ESC>
 
+The skipped delimiters are ([{<"|'`>}]). Also, there are 'forward direction' delimiters - ([{<"|'` - and 'back direction' delimiters - "|'`>}]) - which affect how other skip features work.
+
+Skipit can be used to skip many consecutive delimiters at once until it finds a non-delimiter character - by default this feature is mapped to <C-l>L. For example:
+
+    |[ { foo: "bar" } ]
+
+Typing <C-l>L results in
+
+    [ {| foo: "bar" } ]
+
+Again:
+
+    [ { foo: "|bar" } ]
+
+Again:
+
+    [ { foo: "bar"| } ]
+
+One last time:
+
+    [ { foo: "bar" } ]|
+
+This also works with multiline.
+
+Jumping back is supported also, with the analogous <C-l>h and <C-l>H
 
                                                 *i_CTRL-L_l*
-CTRL-L l                Skip text and place cursor right after the next ([{<"|'>}])
+CTRL-L l                Skip text and place cursor right after the next delimiter
                         Use <Plug>SkipItForward to remap:
                         imap <C-f> <Plug>SkipItForward
+
+                                                *i_CTRL-L_L*
+CTRL-L L                Skip text and place cursor right after the next delimiter and all the consecutive delimiters of the same direction
+                        Use <Plug>SkipAllForward to remap:
+                        imap <C-f> <Plug>SkipAllForward
+
+                                                *i_CTRL-L_h*
+CTRL-L h                Skip text and place cursor right before the previous delimiter
+                        Use <Plug>SkipItBack to remap:
+                        imap <C-f> <Plug>SkipItBack
+
+                                                *i_CTRL-L_H*
+CTRL-L H                Skip text and place cursor right before the previous delimiter and all the consecutive delimiters of the same direction
+                        Use <Plug>SkipAllBack to remap:
+                        imap <C-f> <Plug>SkipAllBack
 
                                                 *g:skipit_multiline*
 By default <CTRL-L>l skips text across lines. You can change this behaviour by
