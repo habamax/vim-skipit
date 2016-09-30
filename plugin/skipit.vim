@@ -6,6 +6,10 @@ if exists("g:loaded_skipit") || &cp || v:version < 700
 endif
 let g:loaded_skipit = 1
 
+if !exists("g:skipit_default_mappings")
+	let g:skipit_default_mappings = 1
+endif
+
 if !exists('g:skipit_multiline')
 	let g:skipit_multiline = 1
 endif
@@ -155,18 +159,20 @@ inoremap <silent> <Plug>SkipItBack <C-\><C-O>:call <SID>skip_it_back()<CR>
 inoremap <silent> <Plug>SkipAllForward <C-\><C-O>:call <SID>skip_all_forward()<CR>
 inoremap <silent> <Plug>SkipAllBack <C-\><C-O>:call <SID>skip_all_back()<CR>
 
-if !hasmapto('<Plug>SkipItForward') && maparg('<C-l>l','i') ==# ''
-	imap <C-l>l <Plug>SkipItForward
-endif
+if g:skipit_default_mappings
+	if !hasmapto('<Plug>SkipItForward') && maparg('<C-l>l','i') ==# ''
+		imap <C-l>l <Plug>SkipItForward
+	endif
 
-if !hasmapto('<Plug>SkipItBack') && maparg('<C-l>h','i') ==# ''
-	imap <C-l>h <Plug>SkipItBack
-endif
+	if !hasmapto('<Plug>SkipItBack') && maparg('<C-l>h','i') ==# ''
+		imap <C-l>h <Plug>SkipItBack
+	endif
 
-if !hasmapto('<Plug>SkipAllForward') && maparg('<C-l>L','i') ==# ''
-	imap <C-l>L <Plug>SkipAllForward
-endif
+	if !hasmapto('<Plug>SkipAllForward') && maparg('<C-l>L','i') ==# ''
+		imap <C-l>L <Plug>SkipAllForward
+	endif
 
-if !hasmapto('<Plug>SkipAllBack') && maparg('<C-l>H','i') ==# ''
-	imap <C-l>H <Plug>SkipAllBack
+	if !hasmapto('<Plug>SkipAllBack') && maparg('<C-l>H','i') ==# ''
+		imap <C-l>H <Plug>SkipAllBack
+	endif
 endif

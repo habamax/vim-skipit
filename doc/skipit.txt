@@ -80,4 +80,12 @@ setting:
     let g:skipit_multiline = 0
 in your .vimrc
 
+You can turn off default mappings:
+    let g:skipit_default_mappings = 0
+
+It should be set up before plugin is loaded, for ex:
+    let g:skipit_default_mappings = 0
+    Plug 'habamax/vim-skipit'
+    
+
  vim:tw=78:et:ft=help:norl:
