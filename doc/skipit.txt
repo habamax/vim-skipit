@@ -86,6 +86,6 @@ You can turn off default mappings:
 It should be set up before plugin is loaded, for ex:
     let g:skipit_default_mappings = 0
     Plug 'habamax/vim-skipit'
-    
+
 
  vim:tw=78:et:ft=help:norl:
