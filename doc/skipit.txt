@@ -3,8 +3,12 @@
 Author:  Maxim Kim <habamax@gmail.com>
 License: MIT
 
-While INSERT mode on press <CTRL-L>l to skip everything until parentheses, bars or
-quotes and place cursor right after them.
+The plugin lets you bind a key to move cursor to the opening braces, quotes
+etc.
+
+If you have g:skipit_default_mappings set to 1 then while INSERT mode on press
+<CTRL-L>l to skip everything until parentheses, bars or quotes and place
+cursor right after them.
 
 Example:
 
@@ -56,23 +60,23 @@ Jumping back is supported also, with the analogous <C-l>h and <C-l>H
 
                                                 *i_CTRL-L_l*
 CTRL-L l                Skip text and place cursor right after the next delimiter
-                        Use <Plug>SkipItForward to remap:
-                        imap <C-f> <Plug>SkipItForward
+                        Use <Plug>(SkipItForward) to remap:
+                        imap <C-f> <Plug>(SkipItForward)
 
                                                 *i_CTRL-L_L*
 CTRL-L L                Skip text and place cursor right after the next delimiter and all the consecutive delimiters of the same direction
-                        Use <Plug>SkipAllForward to remap:
-                        imap <C-f> <Plug>SkipAllForward
+                        Use <Plug>(SkipAllForward) to remap:
+                        imap <C-f> <Plug>(SkipAllForward)
 
                                                 *i_CTRL-L_h*
 CTRL-L h                Skip text and place cursor right before the previous delimiter
-                        Use <Plug>SkipItBack to remap:
-                        imap <C-f> <Plug>SkipItBack
+                        Use <Plug>(SkipItBack) to remap:
+                        imap <C-f> <Plug>(SkipItBack)
 
                                                 *i_CTRL-L_H*
 CTRL-L H                Skip text and place cursor right before the previous delimiter and all the consecutive delimiters of the same direction
-                        Use <Plug>SkipAllBack to remap:
-                        imap <C-f> <Plug>SkipAllBack
+                        Use <Plug>(SkipAllBack) to remap:
+                        imap <C-f> <Plug>(SkipAllBack)
 
                                                 *g:skipit_multiline*
 By default <CTRL-L>l skips text across lines. You can change this behaviour by
@@ -80,12 +84,14 @@ setting:
     let g:skipit_multiline = 0
 in your .vimrc
 
-You can turn off default mappings:
-    let g:skipit_default_mappings = 0
+You can turn on default mappings:
+    let g:skipit_default_mappings = 1
 
 It should be set up before plugin is loaded, for ex:
-    let g:skipit_default_mappings = 0
+    let g:skipit_default_mappings = 1
     Plug 'habamax/vim-skipit'
 
+I personally don't use default mappings and just bind <Plug>(SkipItForward) to
+a key easily pressed.
 
  vim:tw=78:et:ft=help:norl:

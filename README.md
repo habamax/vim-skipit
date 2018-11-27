@@ -1,8 +1,9 @@
 # vim-skipit
 Skip text in INSERT mode.
 
-While INSERT mode on press `<CTRL-L>l ` to skip everything until parentheses, bars or
-quotes and place cursor right after them.
+If you have `g:skipit_default_mappings` set to 1 then while INSERT mode on press
+`<CTRL-L>l` to skip everything until parentheses, bars or quotes and place
+cursor right after them.
 
 ## Example
 
